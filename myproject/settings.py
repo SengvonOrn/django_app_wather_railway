@@ -24,8 +24,8 @@ SECRET_KEY = 'django-insecure-rfzjwy$o&x)8$8@qj%l$$feq2k*c---%5290axf+0ipyrkkf&t
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['weather-app-seng.up.railway.app', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://weather-app-seng.up.railway.app']
 
 
 # Application definition
