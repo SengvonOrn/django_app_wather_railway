@@ -8,9 +8,10 @@ from django.contrib import messages
 def home(request):
     api_key = "0e9b3f7bea91fc03f5bd05877cfa488b"
     url = "https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid={}"
+
     if request.method == 'POST':
-        city_name = request.POST.get('city')  # get the city from the POST request
-        response= requests.get(url.format(city_name, api_key)).json()
+        city_name = request.POST.get('city')  # get the city from the POST request  
+        response = requests.get(url.format(city_name, api_key)).json()
         if  response['cod'] == 200:
             if not City.objects.filter(name=city_name).exists():  
               # save the city
