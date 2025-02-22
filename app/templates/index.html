@@ -1,0 +1,190 @@
+{% extends 'base.html' %} {% block content %}
+
+<style>
+  /* Import Google Font */
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+  /* Global Styles */
+  body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Input Form */
+  .form-group {
+    width: 100%;
+    margin-left: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-group form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .form-group input {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: 0.3s;
+  }
+
+  .form-group input::placeholder {
+    color: #ccc;
+  }
+
+  .form-group input:focus {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+  }
+
+  .form-group button {
+    background: #ff7eb3;
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .form-group button:hover {
+    background: #ff4f8b;
+    transform: scale(1.1);
+  }
+
+  /* Weather Cards */
+  .weather-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin-left: 30px;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .weather-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    opacity: 0;
+    animation: fadeIn 0.6s ease-in-out forwards;
+  }
+
+  .weather-card:hover {
+    transform: scale(1.05);
+  }
+
+  .weather-card img {
+    width: 50px;
+    animation: bounce 2s infinite;
+  }
+
+  .weather-info {
+    text-align: left;
+    font-size: 14px;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 500px) {
+    .form-group input {
+      font-size: 14px;
+    }
+
+    .form-group button {
+      font-size: 14px;
+      padding: 10px;
+    }
+
+    .weather-card {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="form-group">
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="city" placeholder="Enter City 🌍" required />
+      <button type="submit">Add ➕</button>
+    </form>
+  </div>
+
+  <div class="weather-container">
+    {% for weather in weather_data %}
+    <div class="weather-card">
+      <img
+        src="http://openweathermap.org/img/w/{{weather.icon}}.png"
+        alt="Weather Icon"
+      />
+      <div class="weather-info">
+        <strong>📍 {{weather.city}}</strong><br />
+        🌡️ {{weather.temperature}}°C<br />
+        🌥️ {{weather.description}}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

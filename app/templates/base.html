@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Weather</title>
+    <style>
+      /* Google Font */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+      /* Reset & Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #1f1c2c, #928dab);
+        color: #fff;
+      }
+
+      /* Header Navigation */
+      .header {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px 0;
+        text-align: center;
+
+        transition: all 0.3s ease-in-out;
+        z-index: 1000;
+      }
+
+      .header:hover {
+        transform: scale(1.02);
+      }
+
+      .header a {
+        text-decoration: none;
+        color: #ff7eb3;
+        font-size: 24px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      .header a:hover {
+        color: #ff4f8b;
+        text-shadow: 0px 0px 10px #ff4f8b;
+      }
+
+      /* Main Content */
+      .main {
+        margin: 80px auto 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      /* Fade-in Animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .container {
+        animation: fadeIn 1s ease-in-out;
+      }
+      .success {
+        background-color: #2ecc71;
+        padding: 5px;
+        border-radius: 10px;
+      }
+      .info {
+        background-color: #3498db;
+        padding: 5px;
+        border-radius: 10px;
+      }
+      .error {
+        background-color: #e74c3c;
+        padding: 5px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Navigation -->
+    <nav class="header">
+      <a href="{% url 'home' %}">🌤 Weather App</a>
+    </nav>
+    <!-- Main Content -->
+    <div class="main">
+      {% if messages %} {% for message in messages %}
+      <div class="message {{message.tags}}">{{ message }}</div>
+      {% endfor %} {% endif %}
+      <div class="container">{% block content %} {% endblock content %}</div>
+    </div>
+  </body>
+</html>
